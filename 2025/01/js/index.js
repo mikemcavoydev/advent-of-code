@@ -16,11 +16,30 @@ async function parseInput() {
     right.push(arr[1]);
   }
 
-  return { left, right };
-}
+  const sortFn = (a, b) => a - b;
 
-parseInput();
+  return { left: left.sort(sortFn), right: right.sort(sortFn) };
+}
 
 (async function () {
   const { left, right } = await parseInput();
+
+  let distanceSum = 0;
+
+  for (let i = 0; i < left.length; i++) {
+    const l = left[i];
+    const r = right[i];
+
+    if (l == r) {
+      continue;
+    }
+
+    if (l > r) {
+      distanceSum += l - r;
+    } else {
+      distanceSum += r - l;
+    }
+  }
+
+  console.log(distanceSum);
 })();
